@@ -1,14 +1,61 @@
-import { Common, TextFieldExBase } from './textfield-ex.common';
-import { TextField } from 'tns-core-modules/ui/text-field';
+import { TextFieldExBase, keyboardTypeProperty } from './textfield-ex.common';
+import { keyboardTypeProperty as keyboardTypePropertyOriginal } from 'tns-core-modules/ui/editable-text-base';
 
 export * from './textfield-ex.common';
 
 export class TextFieldEx extends TextFieldExBase {
   private _delegate: any;
 
-  public initNativeView() {
+  createNativeView() {
+    console.log('> > > > > > > > createNativeView');
+    return super.createNativeView();
+  }
+
+  initNativeView() {
+    console.log('> > > > > > > > initNativeView');
+
     super.initNativeView();
-    this._delegate = TextFieldExDelegate.initWithOwnerAndDefaultImplementation(new WeakMap(this), this._delegate);
+    console.log('> > > > > > > > > > > iOS :: _delegate?', this._delegate);
+
+    this._delegate = TextFieldExDelegate.initWithOwnerAndDefaultImplementation(new WeakRef(this), this._delegate);
+  }
+
+  disposeNativeView() {
+    console.log('> > > > > > > > disposeNativeView');
+    super.disposeNativeView();
+  }
+
+  [keyboardTypeProperty.getDefault](): "datetime" | "phone" | "number" | "url" | "email" | "digits" | string {
+    console.log('> > > > > > > > keyboardTypeProperty.getDefault');
+
+    let keyboardType = this.nativeTextViewProtected.keyboardType;
+
+    switch (keyboardType) {
+      case UIKeyboardType.NumberPad:
+        return "digits";
+
+      default:
+        return super[keyboardTypePropertyOriginal.getDefault]();
+    }
+  }
+
+  [keyboardTypeProperty.setNative](value: "datetime" | "phone" | "number" | "url" | "email" | "digits" | string) {
+    console.log('> > > > > > > > keyboardTypeProperty.setNative', value);
+    let newKeyboardType: UIKeyboardType;
+
+    switch (value) {
+      case "digits":
+        newKeyboardType = UIKeyboardType.NumberPad;
+        break;
+
+      default:
+        super[keyboardTypePropertyOriginal.setNative](value);
+        break;
+    }
+
+    if (newKeyboardType !== undefined) {
+      this.nativeTextViewProtected.keyboardType = newKeyboardType;
+    }
   }
 }
 
