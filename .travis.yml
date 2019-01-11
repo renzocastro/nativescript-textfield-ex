@@ -1,6 +1,6 @@
 env:
   global:
-    - ANDROID_HOME=${TRAVIS_BUILD_DIR}/android-sdk
+    - ANDROID_HOME=${HOME}/android-sdk
     - PATH=${ANDROID_HOME}/:${ANDROID_HOME}/tools/:${ANDROID_HOME}/platform-tools/:${PATH}
 
 matrix:
