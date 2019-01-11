@@ -1,8 +1,9 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" class="page">
-  <!-- xmlns:ui="nativescript-textfield-ex"> -->
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="pageLoaded" class="page"
+  xmlns:ui="nativescript-textfield-ex">
   <StackLayout class="p-20">
     <Label text="{{ message }}" class="t-20 text-center c-black" textWrap="true"/>
-    <!-- <ui:TextFieldEx hint="0000" class="tf-ex" keyboardType="digits"></ui:TextFieldEx> -->
+
+    <ui:TextFieldEx hint="0000" class="tf-ex" keyboardType="digits"></ui:TextFieldEx>
 
     <TextField hint="0000" class="tf-ex" keyboardType="number"></TextField>
   </StackLayout>
