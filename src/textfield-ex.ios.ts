@@ -53,7 +53,6 @@ class TextFieldExDelegate extends NSObject implements UITextFieldDelegate {
 
   public textFieldDidBeginEditing(textField: UITextField) {
     this._defaultImplementation.textFieldDidBeginEditing(textField);
-    textField.selectedTextRange = textField.textRangeFromPositionToPosition(textField.beginningOfDocument, textField.beginningOfDocument);
   }
 
   public textFieldDidEndEditing(textField: UITextField) {
